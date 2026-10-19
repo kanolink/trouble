@@ -128,20 +128,6 @@ dependencies = [
 
 [[package]]
 name = "bt-hci"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f3c66fd0a41a3b3a5906847b1bf5516048ce083e24fa9341a0fa31d3b4cd73d"
-dependencies = [
- "btuuid",
- "embassy-sync 0.8.0",
- "embedded-io 0.7.1",
- "embedded-io-async 0.7.0",
- "futures-intrusive",
- "heapless 0.9.3",
-]
-
-[[package]]
-name = "bt-hci"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0048816dbf43511d51f46514fada281890aa0190ada5170cf7bbb66259b611e7"
@@ -901,8 +887,8 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
 name = "esp-alloc"
-version = "0.10.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.11.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "allocator-api2",
  "document-features",
@@ -916,8 +902,8 @@ dependencies = [
 
 [[package]]
 name = "esp-backtrace"
-version = "0.19.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.20.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "esp-config",
@@ -931,15 +917,15 @@ dependencies = [
 
 [[package]]
 name = "esp-bootloader-esp-idf"
-version = "0.5.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.6.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "esp-config",
+ "esp-hal",
  "esp-hal-procmacros",
  "esp-metadata-generated",
  "esp-rom-sys",
- "esp-storage",
  "jiff",
  "sha2",
  "strum",
@@ -947,8 +933,8 @@ dependencies = [
 
 [[package]]
 name = "esp-config"
-version = "0.7.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.8.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "esp-metadata-generated",
@@ -959,8 +945,8 @@ dependencies = [
 
 [[package]]
 name = "esp-hal"
-version = "1.1.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "1.2.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "bitfield",
  "bytemuck",
@@ -996,6 +982,7 @@ dependencies = [
  "esp32c6",
  "esp32c61",
  "esp32h2",
+ "esp32h4",
  "esp32p4",
  "esp32s2",
  "esp32s3",
@@ -1017,14 +1004,15 @@ dependencies = [
  "static_cell",
  "strum",
  "ufmt-write",
+ "xarxa-driver",
  "xtensa-lx",
  "xtensa-lx-rt",
 ]
 
 [[package]]
 name = "esp-hal-procmacros"
-version = "0.22.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.23.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "object",
@@ -1037,16 +1025,15 @@ dependencies = [
 
 [[package]]
 name = "esp-metadata-generated"
-version = "0.4.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.6.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 
 [[package]]
 name = "esp-phy"
-version = "0.2.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.3.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
- "embassy-sync 0.8.0",
  "esp-config",
  "esp-hal",
  "esp-metadata-generated",
@@ -1068,8 +1055,8 @@ dependencies = [
 
 [[package]]
 name = "esp-println"
-version = "0.17.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.18.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "esp-metadata-generated",
@@ -1080,11 +1067,10 @@ dependencies = [
 
 [[package]]
 name = "esp-radio"
-version = "1.0.0-beta.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "1.0.0-beta.2"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "allocator-api2",
- "bt-hci 0.9.0",
  "bt-hci-transport",
  "docsplay",
  "document-features",
@@ -1093,6 +1079,7 @@ dependencies = [
  "embedded-io 0.7.1",
  "embedded-io-async 0.6.1",
  "embedded-io-async 0.7.0",
+ "enumset",
  "esp-alloc",
  "esp-config",
  "esp-hal",
@@ -1105,17 +1092,19 @@ dependencies = [
  "esp-wifi-sys-esp32",
  "esp-wifi-sys-esp32c2",
  "esp-wifi-sys-esp32c3",
+ "esp-wifi-sys-esp32c5",
  "esp-wifi-sys-esp32c6",
+ "esp-wifi-sys-esp32c61",
  "esp-wifi-sys-esp32h2",
  "esp-wifi-sys-esp32s2",
  "esp-wifi-sys-esp32s3",
+ "esp-wifi-sys-esp32s31",
  "esp32",
  "esp32c2",
  "esp32c3",
  "esp32c6",
  "esp32h2",
  "esp32s3",
- "heapless 0.9.3",
  "instability",
  "log",
  "num-derive",
@@ -1127,8 +1116,8 @@ dependencies = [
 
 [[package]]
 name = "esp-radio-rtos-driver"
-version = "0.3.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.4.2"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "esp-sync",
  "portable-atomic",
@@ -1136,8 +1125,8 @@ dependencies = [
 
 [[package]]
 name = "esp-riscv-rt"
-version = "0.14.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.15.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "riscv",
@@ -1146,8 +1135,8 @@ dependencies = [
 
 [[package]]
 name = "esp-rom-sys"
-version = "0.1.4"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.1.5"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "esp-metadata-generated",
@@ -1161,8 +1150,8 @@ dependencies = [
 
 [[package]]
 name = "esp-rtos"
-version = "0.3.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.4.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "allocator-api2",
  "defmt",
@@ -1187,8 +1176,8 @@ dependencies = [
 
 [[package]]
 name = "esp-storage"
-version = "0.9.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.10.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "embedded-storage",
@@ -1207,8 +1196,8 @@ dependencies = [
 
 [[package]]
 name = "esp-sync"
-version = "0.2.1"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.3.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "embassy-sync 0.6.2",
@@ -1221,120 +1210,152 @@ dependencies = [
 
 [[package]]
 name = "esp-wifi-sys-esp32"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=2ea8e3e#2ea8e3e6c2f49be41b8536e0d3b7f8058a6c1aa6"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "esp-wifi-sys-esp32c2"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=2ea8e3e#2ea8e3e6c2f49be41b8536e0d3b7f8058a6c1aa6"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "esp-wifi-sys-esp32c3"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=2ea8e3e#2ea8e3e6c2f49be41b8536e0d3b7f8058a6c1aa6"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
+dependencies = [
+ "log",
+]
+
+[[package]]
+name = "esp-wifi-sys-esp32c5"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "esp-wifi-sys-esp32c6"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=2ea8e3e#2ea8e3e6c2f49be41b8536e0d3b7f8058a6c1aa6"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
+dependencies = [
+ "log",
+]
+
+[[package]]
+name = "esp-wifi-sys-esp32c61"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "esp-wifi-sys-esp32h2"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=2ea8e3e#2ea8e3e6c2f49be41b8536e0d3b7f8058a6c1aa6"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "esp-wifi-sys-esp32s2"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=2ea8e3e#2ea8e3e6c2f49be41b8536e0d3b7f8058a6c1aa6"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "esp-wifi-sys-esp32s3"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=2ea8e3e#2ea8e3e6c2f49be41b8536e0d3b7f8058a6c1aa6"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
+dependencies = [
+ "log",
+]
+
+[[package]]
+name = "esp-wifi-sys-esp32s31"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-wifi-sys.git?rev=a09ab97#a09ab9763539e528d7a836531a421826761c5649"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "esp32"
-version = "0.40.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.42.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32c2"
-version = "0.29.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.31.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32c3"
-version = "0.32.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.34.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32c5"
-version = "0.2.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.4.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32c6"
-version = "0.23.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.25.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32c61"
-version = "0.3.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.5.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32h2"
-version = "0.19.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.21.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
+dependencies = [
+ "vcell",
+]
+
+[[package]]
+name = "esp32h4"
+version = "0.1.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32p4"
-version = "0.2.0"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.4.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "critical-section",
  "vcell",
@@ -1342,24 +1363,24 @@ dependencies = [
 
 [[package]]
 name = "esp32s2"
-version = "0.31.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.33.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32s3"
-version = "0.35.2"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.37.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "vcell",
 ]
 
 [[package]]
 name = "esp32s31"
-version = "0.1.0"
-source = "git+https://github.com/esp-rs/esp-pacs?rev=131062119#131062119ca2460b625c1c118f2f7c16137598d7"
+version = "0.3.0"
+source = "git+https://github.com/esp-rs/esp-pacs.git?rev=33d9b66#33d9b665f3f9a36b21bf813e15e68d4ead6644f9"
 dependencies = [
  "critical-section",
  "vcell",
@@ -2555,7 +2576,7 @@ dependencies = [
 name = "trouble-example-apps"
 version = "0.1.0"
 dependencies = [
- "bt-hci 0.11.0",
+ "bt-hci",
  "embassy-futures",
  "embassy-sync 0.8.0",
  "embassy-time",
@@ -2574,7 +2595,7 @@ dependencies = [
 name = "trouble-host"
 version = "0.8.0"
 dependencies = [
- "bt-hci 0.11.0",
+ "bt-hci",
  "embassy-crypto",
  "embassy-futures",
  "embassy-sync 0.8.0",
@@ -2783,17 +2804,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "xarxa-driver"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "241eb997638d080753b73e5335427d3a27568678aafa6c0e0564485257e90738"
+dependencies = [
+ "critical-section",
+ "document-features",
+]
+
+[[package]]
 name = "xtensa-lx"
 version = "0.13.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "critical-section",
 ]
 
 [[package]]
 name = "xtensa-lx-rt"
-version = "0.22.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+version = "0.23.0"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "document-features",
  "xtensa-lx",
@@ -2803,7 +2834,7 @@ dependencies = [
 [[package]]
 name = "xtensa-lx-rt-proc-macros"
 version = "0.5.0"
-source = "git+https://github.com/embassy-rs/esp-hal.git?rev=7af0919e56e8298a7cb429da7f078757e350d842#7af0919e56e8298a7cb429da7f078757e350d842"
+source = "git+https://github.com/kanolink/esp-hal.git?rev=8a3f24d3563b5b99fc7941c560bef8e552ecd836#8a3f24d3563b5b99fc7941c560bef8e552ecd836"
 dependencies = [
  "proc-macro2",
  "quote",
