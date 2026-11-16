@@ -7,7 +7,7 @@ use bt_hci::param::{ConnHandle, LeConnRole};
 use bt_hci::{FromHciBytes, WriteHci};
 use embassy_sync::blocking_mutex::raw::NoopRawMutex;
 use embassy_sync::channel::Channel;
-use embassy_sync::waitqueue::WakerRegistration;
+use embassy_sync::waitqueue::{MultiWakerRegistration, WakerRegistration};
 use embassy_time::with_timeout;
 
 use crate::connection_manager::ConnectionManager;
@@ -34,9 +34,15 @@ const L2CAP_RTX_TIMEOUT: embassy_time::Duration = embassy_time::Duration::from_s
 const MIN_L2CAP_MTU: u16 = 23;
 const MIN_L2CAP_MPS: u16 = 23;
 
+/// Tasks that can wait for an incoming connection request at the same time, one per
+/// connection they listen on. A registration that holds a single waker makes two listeners wake
+/// each other on every poll, without end. More listeners than this do the same: the one that
+/// finds no free slot wakes all the others, and they register again.
+const ACCEPT_WAKERS: usize = 4;
+
 struct State {
     next_req_id: u8,
-    accept_waker: WakerRegistration,
+    accept_waker: MultiWakerRegistration<ACCEPT_WAKERS>,
     create_waker: WakerRegistration,
     disconnect_waker: WakerRegistration,
     /// Bitmask tracking which SPSMs (0x0001..=0x00FF) have active listeners.
@@ -129,7 +135,7 @@ impl<'d, P: PacketPool> ChannelManager<'d, P> {
         Self {
             state: RefCell::new(State {
                 next_req_id: 0,
-                accept_waker: WakerRegistration::new(),
+                accept_waker: MultiWakerRegistration::new(),
                 create_waker: WakerRegistration::new(),
                 disconnect_waker: WakerRegistration::new(),
                 registered_spsms: [0; 8],
@@ -2074,5 +2080,65 @@ mod tests {
 
         drop(builder.build());
         assert_eq!(live_packets(), 0);
+    }
+
+    /// A waker that counts how often it is woken.
+    struct CountingWaker(std::sync::atomic::AtomicUsize);
+
+    impl std::task::Wake for CountingWaker {
+        fn wake(self: std::sync::Arc<Self>) {
+            self.0.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+        }
+    }
+
+    /// One task per connection waits for a connection request on its own connection. Polling
+    /// one listener must not wake the other, or the two wake each other without end. An event
+    /// that can end a wait still wakes every listener.
+    #[test]
+    fn listeners_on_two_connections_do_not_wake_each_other() {
+        use core::future::Future;
+        use std::sync::atomic::{AtomicUsize, Ordering};
+        use std::sync::Arc;
+        use std::task::{Context, Waker};
+
+        let mut resources: HostResources<DefaultPacketPool, 2, 2> = HostResources::new();
+        let ble = MockController::new();
+        let builder = crate::new(ble, &mut resources);
+        let ble = BleHost::new(
+            builder.controller.as_ref().unwrap(),
+            builder.host_state.as_ref().unwrap(),
+        );
+
+        let conns = [ConnHandle::new(33), ConnHandle::new(34)];
+        for (index, conn) in conns.iter().enumerate() {
+            ble.connections()
+                .connect(
+                    *conn,
+                    Address::new(AddrKind::PUBLIC, BdAddr::new([index as u8; 6])),
+                    LeConnRole::Peripheral,
+                    ConnParams::new(),
+                )
+                .unwrap();
+        }
+
+        let woken = [
+            Arc::new(CountingWaker(AtomicUsize::new(0))),
+            Arc::new(CountingWaker(AtomicUsize::new(0))),
+        ];
+        let wakers = [Waker::from(woken[0].clone()), Waker::from(woken[1].clone())];
+        let mut first = core::pin::pin!(ble.channels().next_pending(conns[0], ble.connections()));
+        let mut second = core::pin::pin!(ble.channels().next_pending(conns[1], ble.connections()));
+        for _ in 0..3 {
+            assert!(first.as_mut().poll(&mut Context::from_waker(&wakers[0])).is_pending());
+            assert!(second.as_mut().poll(&mut Context::from_waker(&wakers[1])).is_pending());
+        }
+        assert_eq!(woken[0].0.load(Ordering::Relaxed), 0);
+        assert_eq!(woken[1].0.load(Ordering::Relaxed), 0);
+
+        // A disconnect ends the wait on that connection, so the listeners are woken to look.
+        ble.connections().disconnected(conns[0], Status::UNSPECIFIED).unwrap();
+        ble.channels().disconnected(conns[0]).unwrap();
+        assert_eq!(woken[0].0.load(Ordering::Relaxed), 1);
+        assert_eq!(woken[1].0.load(Ordering::Relaxed), 1);
     }
 }
